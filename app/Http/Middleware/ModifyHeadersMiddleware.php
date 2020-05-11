@@ -16,8 +16,10 @@ class ModifyHeadersMiddleware
     public function handle( $request, Closure $next )
     {
         if ($request->has('access_token')) {
-            $request->headers->set('Authorization', 'Bearer ' . $request->get('access_token'));
+            $request->headers
+                ->set('Authorization', 'Bearer ' . $request->get('access_token'));
         }
+        $request->headers->set('Content-Type', 'application/json; charset=utf-8');
         return $next($request);
     }
 }

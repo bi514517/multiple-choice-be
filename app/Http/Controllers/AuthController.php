@@ -125,7 +125,7 @@ class AuthController extends Controller
         return response()->json(
             [  
                 'status' => true,
-                'data' => $request->user(),
+                'data' => User::All(),
                 'message' => "user responed"
             ]
         );

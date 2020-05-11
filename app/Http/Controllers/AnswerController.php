@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\answer;
 use Illuminate\Http\Request;
+use App\TestSubjectResult;
 
 class AnswerController extends Controller
 {
@@ -52,8 +53,15 @@ class AnswerController extends Controller
 
     public static function checkCorrectAnswers(Request $request)
     {
+        $user = $request->user();
         if(isset($request->answers)){
             $data = answer::checkCorrectAnswers($request->answers);
+            $resultJson = json_encode($data);
+            $resultJsonDecode = json_decode($resultJson, true);
+            TestSubjectResult::create($user->id, $request->subjectId, 
+                $resultJson, json_encode($request->questions) , json_encode($request->answers), 
+                $resultJsonDecode['appreciate'], $resultJsonDecode['mark'], 
+                $resultJsonDecode['total'], $resultJsonDecode['correct']) ;
             $status = isset($data);
             return response()->json([
                 'status' => $status,

@@ -89,6 +89,7 @@ class Test extends Migration
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
             $table->bigInteger('userId')->unsigned();
             $table->boolean('publish')->nullable()->default(true);
+            $table->bigInteger('duration')->default(5400000);
             //
             $table->foreign('userId')->references('id')->on('users');
         });
@@ -99,6 +100,22 @@ class Test extends Migration
             
             // reference
             $table->foreign('questionId')->references('id')->on('question');
+            $table->foreign('test_subject_id')->references('id')->on('test_subject');
+        });
+
+        Schema::create('test_subject_result', function (Blueprint $table) {
+            $table->bigInteger('userId')->unsigned();
+            $table->integer('test_subject_id')->unsigned();
+            $table->json('result')->nullable();
+            $table->json('questions')->nullable();
+            $table->json('userAnswer')->nullable();
+            $table->text('appreciate')->nullable();
+            $table->float('mark')->nullable();
+            $table->integer('total')->nullable();
+            $table->integer('correct')->nullable();
+            $table->timestamp('created_at')->useCurrent();
+            // reference
+            $table->foreign('userId')->references('id')->on('users');
             $table->foreign('test_subject_id')->references('id')->on('test_subject');
         });
     }

@@ -35,6 +35,7 @@ class TestSubjectController extends Controller
                 $value->id,
                 $value->test_subject_name,
                 $value->test_subject_description,
+                $value->duration / (1000 * 60),
                 $value->question ? count($value->question) : 0,
             ];
             array_push($result, $tmp);
@@ -59,6 +60,7 @@ class TestSubjectController extends Controller
         $validator = Validator::make($request->subject, [
             'test_subject_name' => 'required',
             'test_subject_description' => 'required',
+            'duration' => 'required',
         ]);
     
         if ($validator->fails()) {

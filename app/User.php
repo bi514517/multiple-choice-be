@@ -21,6 +21,11 @@ class User extends Authenticatable
             ->where('users.id', $id)
             ->update($request);
     }
+
+    public static function All()
+    {
+        return DB::table('users')->get();
+    }
     /**
      * The attributes that are mass assignable.
      *

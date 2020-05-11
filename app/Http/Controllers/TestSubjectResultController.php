@@ -2,49 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\TestSubjectResult;
 use Illuminate\Http\Request;
-use App\Question;
-use App\TestSubject;
 
-
-class TestingController extends Controller
+class TestSubjectResultController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = TestSubject::getTestSubjectPublic();
+        $userId = $request->userId ? $request->user()->id: null;
+        $data = TestSubjectResult::getResults($request->subjectId, $userId, $request->topOf, $request->sortBy);
         $status = isset($data);
         return response()->json([
             'status' => $status,
             'data' => $data,
-            'message' => ''
+            'message' => ' '
         ], 201);
     }
 
-    public function getQuestion(Request $request)
-    {
-        $data = Question::getQuestion($request);
-        $status = isset($data);
-        return response()->json([
-            'status' => $status,
-            'data' => $data,
-            'message' => ''
-            
-        ], 201);
-    }
-
-    public function getQuestionBySubjectId($id)
-    {
-        return response()->json([
-            'status' => true,
-            'data' => Question::getByTestSubjectId($id,true),
-            'message' => $id
-        ], 201);
-    }
     /**
      * Show the form for creating a new resource.
      *
@@ -69,26 +48,21 @@ class TestingController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\TestSubjectResult  $testSubjectResult
      * @return \Illuminate\Http\Response
      */
-    public function getTestSubjectById($id)
+    public function show(TestSubjectResult $testSubjectResult)
     {
-        $data = TestSubject::getById($id);
-        return response()->json([
-            'status' => true,
-            'data' => $data,
-            'message' => $id
-        ]);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\TestSubjectResult  $testSubjectResult
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(TestSubjectResult $testSubjectResult)
     {
         //
     }
@@ -97,10 +71,10 @@ class TestingController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\TestSubjectResult  $testSubjectResult
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, TestSubjectResult $testSubjectResult)
     {
         //
     }
@@ -108,10 +82,10 @@ class TestingController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\TestSubjectResult  $testSubjectResult
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(TestSubjectResult $testSubjectResult)
     {
         //
     }

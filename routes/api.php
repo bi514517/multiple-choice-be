@@ -45,20 +45,26 @@ Route::group([
             Route::get('logout', 'AuthController@logout');
             Route::post('update', 'AuthController@update');
             Route::get('user', 'AuthController@user');
+            Route::get('userList', 'AuthController@userList');
         });
     }
 );
 
 Route::group([
     'prefix' => 'public',
-    'middleware' => ['modeheader','auth:api']
     ], function () {
-        Route::post('getQuestion', 'TestingController@getQuestion');
-        Route::get('getQuestion/{id}', 'TestingController@getQuestionBySubjectId');
-        Route::post('getAnwser', 'AnswerController@getAnswer');
-        Route::post('getTrueAnswers', 'AnswerController@getTrueAnswers');
-        Route::post('checkCorrectAnswers', 'AnswerController@checkCorrectAnswers');
         Route::get('getTestSubjectList', 'TestingController@index');
+        Route::group([
+            'middleware' => ['modeheader','auth:api']
+        ], function() {
+            Route::post('getQuestion', 'TestingController@getQuestion');
+            Route::get('getQuestion/{id}', 'TestingController@getQuestionBySubjectId');
+            Route::get('getSubjectById/{id}', 'TestingController@getTestSubjectById');
+            Route::post('getResultsList', 'TestSubjectResultController@index');
+            Route::post('getAnwser', 'AnswerController@getAnswer');
+            Route::post('getTrueAnswers', 'AnswerController@getTrueAnswers');
+            Route::post('checkCorrectAnswers', 'AnswerController@checkCorrectAnswers');
+        });
     }
 );
 
