@@ -90,7 +90,7 @@ class QuestionController extends Controller
         }
         return response()->json([
             'status' => true,
-            'message' => $id
+            'message' => "Successful"
         ], 201);
     }
 
@@ -220,7 +220,7 @@ class QuestionController extends Controller
         }
         return response()->json([
             'status' => true,
-            'message' => $id
+            'message' => "Successful"
         ], 201);
     }
 

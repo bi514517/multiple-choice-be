@@ -57,13 +57,13 @@ class Question extends Model
                 if(isset($request->categories)) {
                     $query = $query->whereIn('categoryId',$request->categories);
                 }
-                $query = $query->where('question.publish',true);
-                $newData =  $query->where('levelId',$value['id'])->limit($newNumber)->get();
+                $query = $query->where('question.publish',true)->where('levelId',$value['id'])->limit($newNumber);
+                $newData =  $query->get();
                 foreach ($newData as $value) {
                     array_push($notIn,$value->id);
                     array_push($data, $value);
                 }
-                $number = $number - $query->count();
+                $number = $number - count($newData);
             }
             
         }

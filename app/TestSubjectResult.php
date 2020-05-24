@@ -25,7 +25,8 @@ class TestSubjectResult extends Model
     {
 
         $query = DB::table('test_subject_result')
-            ->leftJoin('test_subject', 'test_subject.id', '=', 'test_subject_result.test_subject_id');
+            ->leftJoin('test_subject', 'test_subject.id', '=', 'test_subject_result.test_subject_id')
+            ->leftJoin('users', 'users.id', '=', 'test_subject_result.userId');
         if(isset($subjectId)){
             $query->where('test_subject_id',$subjectId);
         }

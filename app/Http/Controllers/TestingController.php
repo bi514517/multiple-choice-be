@@ -42,7 +42,7 @@ class TestingController extends Controller
         return response()->json([
             'status' => true,
             'data' => Question::getByTestSubjectId($id,true),
-            'message' => $id
+            'message' => "Successful"
         ], 201);
     }
     /**
@@ -78,7 +78,7 @@ class TestingController extends Controller
         return response()->json([
             'status' => true,
             'data' => $data,
-            'message' => $id
+            'message' => "Successful"
         ]);
     }
 

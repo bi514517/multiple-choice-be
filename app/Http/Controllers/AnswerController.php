@@ -31,26 +31,6 @@ class AnswerController extends Controller
         ], 201);
     }    
 
-    /*public static function checkCorrectAnswer(Request $request)
-    {
-        if(isset($request->questionId)&&isset($request->answerArray)){
-            $data = answer::checkCorrectAnswer($request->questionId, $request->answerArray);
-            $status = isset($data);
-            return response()->json([
-                'status' => $status,
-                'data' => $data,
-                'message' => ''
-                
-            ], 201);
-        }
-        return response()->json([
-            'status' => false,
-            'data' => '',
-            'message' => 'không tìm thấy câu hỏi '
-            
-        ], 201);
-    }   */
-
     public static function checkCorrectAnswers(Request $request)
     {
         $user = $request->user();
